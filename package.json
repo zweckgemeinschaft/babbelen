@@ -4,15 +4,13 @@
   "private": true,
   "dependencies": {
     "@types/jest": "^19.2.3",
+    "@types/material-ui": "^0.17.6",
     "@types/node": "^7.0.18",
     "@types/react": "^15.0.24",
     "@types/react-dom": "^15.5.0",
-    "@types/react-redux": "^4.4.40",
+    "material-ui": "^0.18.1",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-materialize": "^0.18.4",
-    "react-redux": "^5.0.4",
-    "redux": "^3.6.0"
+    "react-dom": "^15.5.4"
   },
   "devDependencies": {
     "react-scripts-ts": "1.4.0"
