@@ -8,9 +8,11 @@
     "@types/node": "^7.0.18",
     "@types/react": "^15.0.24",
     "@types/react-dom": "^15.5.0",
+    "@types/react-tap-event-plugin": "0.0.30",
     "material-ui": "^0.18.1",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-tap-event-plugin": "^2.0.1"
   },
   "devDependencies": {
     "react-scripts-ts": "1.4.0"
