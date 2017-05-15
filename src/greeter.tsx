@@ -19,7 +19,7 @@ export default class Greeter extends React.Component<IGreeterProps, IGreeterStat
   handleNameChange(newName: string): void {
       this.setState({ tentativeName:  newName});
   }
-  
+
   render() {
     return (
       <div>

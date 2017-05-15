@@ -1,0 +1,91 @@
+
+import * as React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
+
+export default class NavDrawer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {open: true};
+    this.handleToggle = this.handleToggle.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+  }
+
+  componentWillMount() {
+  }
+
+  handleToggle() {
+    this.setState({open: !this.state.open});
+  }
+
+  handleClose() {
+      this.setState({open: true});
+  }
+
+  componentWillReceiveProps(nextProps) {
+  }
+
+  render(){
+    return (
+      <div>
+         <MuiThemeProvider muiTheme={getMuiTheme()}>
+         <div>
+            <AppBar
+            className={classnames('app-bar', {'expanded': this.state.open})}
+            onLeftIconButtonTouchTap={this.handleToggle}
+            title="How long have you been alive?"
+            iconElementRight={<RightBar />}
+            />
+            <Drawer
+            docked={true}
+            open={this.state.open}
+            onRequestChange={(open) => this.setState({open})}
+            >
+          <List>
+            <Subheader>Nested List Items</Subheader>
+            <ListItem primaryText="Sent mail" leftIcon={<ContentSend />} />
+            <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
+            <ListItem
+              primaryText="Inbox"
+              leftIcon={<ContentInbox />}
+              initiallyOpen={true}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <ListItem
+                  key={1}
+                  primaryText="Starred"
+                  leftIcon={<ActionGrade />}
+                />,
+                <ListItem
+                  key={2}
+                  primaryText="Sent Mail"
+                  leftIcon={<ContentSend />}
+                  disabled={true}
+                  nestedItems={[
+                    <ListItem key={1} primaryText="Drafts" leftIcon={<ContentDrafts />} />,
+                  ]}
+                />,
+                <ListItem
+                  key={3}
+                  primaryText="Inbox"
+                  leftIcon={<ContentInbox />}
+                  open={this.state.open}
+                  onNestedListToggle={this.handleNestedListToggle}
+                  nestedItems={[
+                    <ListItem key={1} primaryText="Drafts" leftIcon={<ContentDrafts />} />,
+                  ]}
+                />,
+              ]}
+            />
+          </List>
+        </Drawer>
+          { this.props.isAuthenticated && <div className={classnames('app-content', {'expanded': this.state.open})}> { this.props.children } </div>}
+        </div>
+      </MuiThemeProvider>
+      </div>
+    );
+  }
+}
