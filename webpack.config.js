@@ -51,20 +51,25 @@ module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:5000',
     'webpack/hot/dev-server',
+    'materialize-css/bin/materialize.js',
+    'materialize-css/bin/materialize.css',
     './src/index.jsx'
   ],
   output: {
-    path: __dirname,
+    path: path.join(__dirname, 'public'),
     filename: 'bundle.js',
-    publicPath: '/public/'
+    publicPath: '/'
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['', '.js', '.jsx']
   },
   devtool: 'eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoErrorsPlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      comments: false,
+    }),
   ],
   module: {
     loaders: [
@@ -73,9 +78,12 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
         query: {
-          presets: ['es2015', 'react']
+          presets: ['react', 'es2015', 'stage-0']
         }
-      }
+      },
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader:"url?limit=10000&mimetype=application/font-woff" },
+      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file"  },
+      { test: /\.css$/, loader: "style-loader!css-loader"  }
     ]
   }
 };
