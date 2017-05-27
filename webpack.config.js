@@ -49,8 +49,7 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    'webpack-dev-server/client?http://localhost:5000',
-    'webpack/hot/dev-server',
+    'font-awesome/css/font-awesome.min.css',
     'materialize-css/bin/materialize.js',
     'materialize-css/bin/materialize.css',
     './src/index.jsx'
@@ -65,8 +64,6 @@ module.exports = {
   },
   devtool: 'eval-source-map',
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       comments: false,
     }),
