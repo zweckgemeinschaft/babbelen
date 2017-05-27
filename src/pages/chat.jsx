@@ -31,7 +31,6 @@ class Chat extends React.Component {
   }
 
   render() {
-    console.log(this.props.messages);
     let messages_jsx = [];
     this.props.messages.forEach(msg => {
       let msg_content;
@@ -70,7 +69,6 @@ class Chat extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     messages: state.messages
   };
