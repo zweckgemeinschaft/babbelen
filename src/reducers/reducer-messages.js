@@ -1,28 +1,11 @@
-export default function() {
-    return [
-        {
-          id: "1",
-          type: "text",
-          text: "Erste Nachricht.",
-          sender: "Leon",
-          timestamp: "now",
-          own: true
-        },
-        {
-          id: "2",
-          type: "text",
-          text: "Erste Nachricht.",
-          sender: "Leon",
-          timestamp: "now",
-          own: false
-        },
-        {
-          id: "3",
-          type: "text",
-          text: "Erste Nachricht.",
-          sender: "Leon",
-          timestamp: "now",
-          own: true
-        }
-    ]
+export default function(state=[], action) {
+  switch(action.type) {
+    case "MESSAGE_SENT":
+      return [
+        ...state,
+        action.payload
+      ]
+      break;
+  }
+  return state;
 }

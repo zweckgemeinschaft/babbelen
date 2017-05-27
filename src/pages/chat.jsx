@@ -72,7 +72,7 @@ class Chat extends React.Component {
 function mapStateToProps(state) {
   console.log(state);
   return {
-    messages: state.sentMessages//state.messages.concat(state.sentMessages)
+    messages: state.messages
   };
 }
 
