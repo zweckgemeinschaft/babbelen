@@ -1,11 +1,14 @@
 import * as React from 'react';
+import {connect} from 'react-redux';
+import {sendMessage} from '../actions/index';
+import {bindActionCreators} from 'redux';
 
-export default class Chat extends React.Component {
+class Chat extends React.Component {
 
   static propTypes = {
     messages: React.PropTypes.array,
     displayNames: React.PropTypes.bool,
-    onMessage: React.PropTypes.func
+    onMessage: React.PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -13,28 +16,31 @@ export default class Chat extends React.Component {
     displayNames: false
   }
 
-  sendMessage(event) { 
+  sendMessage(event) {
     event.preventDefault();
- 
+
     const {onMessage} = this.props;
 
     const messageBox = this.refs.message;
-    const value = messageBox.value;
+    const value = messageBox.value.trim();
     messageBox.value = "";
 
-    onMessage ? onMessage(value) : null; 
+    if (value) {
+      onMessage({type: "text", text: value});
+    }
   }
 
   render() {
+    console.log(this.props.messages);
     let messages_jsx = [];
     this.props.messages.forEach(msg => {
-      let msg_content; 
+      let msg_content;
 
       switch (msg.type) {
         case "text":
           msg_content = <span>
             { msg.own ?
-              "Von dir: " : 
+              "Von dir: " :
               (this.props.displayNames ?
                 `Von ${msg.sender}: ` :
                 "Von jemand anderem: ") }
@@ -59,7 +65,21 @@ export default class Chat extends React.Component {
           <input type="submit" value="Send!" />
         </form>
       </div>
-    );  
+    );
   }
-
 }
+
+function mapStateToProps(state) {
+  console.log(state);
+  return {
+    messages: state.sentMessages//state.messages.concat(state.sentMessages)
+  };
+}
+
+function matchDispatchToProps(dispatch) {
+  return bindActionCreators({
+    onMessage: sendMessage
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, matchDispatchToProps)(Chat);
